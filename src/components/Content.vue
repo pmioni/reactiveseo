@@ -92,7 +92,7 @@ export default {
   created () {
     for (let service in this.services) {
       console.log(service)
-      axios.get('http://hcetest.getsandbox.com' + this.services[service].url)
+      axios.get('https://hcetest.getsandbox.com' + this.services[service].url)
 
       .then(response => {
         // JSON responses are automatically parsed.

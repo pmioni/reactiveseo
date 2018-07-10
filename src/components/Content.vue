@@ -5,6 +5,9 @@
     <p>{{ text2 }}</p>
     <p><em>{{ msg2 }}</em></p>
     <hr>
+    <p v-if="delayedText.length > 0">{{ delayedText }}</p>
+    <p><em>{{ msg3 }}</em></p>
+    <hr>
     <div v-for="post of posts">
       <h2>{{post.title}}</h2>
       <p>{{post.data}}</p>
@@ -29,10 +32,14 @@ export default {
   name: 'Content',
   data () {
     return {
+      delay: 300,
       msg: 'Text below the above line is rendered by Vue.js reactively, but is rendered immediately, without REST calls. Here\'s a description of the novel:',
-      msg2: 'Text below the following line is rendered by Vue.js reactively, and comes from a REST service. Each character bio comes from a separate web service call, and each is delayed by a number of milliseconds. The delay of each REST call is detailed after  each text.',
+      msg2: 'Text below the following line is rendered by Vue.js reactively, and is shown after a delay of 300 ms',
+      msg3: 'Text below the following line is rendered by Vue.js reactively, and comes from a REST service. Each character bio comes from a separate web service call, and each is delayed by a number of milliseconds. The delay of each REST call is detailed after  each text.',
       text1: 'Infinite Jest',
       text2: 'Infinite Jest (1996) is a novel written by David Foster Wallace. The lengthy and complex work takes place in a semi-parodic future version of North America. The novel touches on the topics of tennis; substance addiction and recovery programs; depression; child abuse; family relationships; advertising and popular entertainment; film theory; and Quebec separatism.',
+      text3: 'The novel derives its name in part from a line in Hamlet, in which Hamlet refers to the skull of Yorick, the court jester: "Alas, poor Yorick! I knew him, Horatio: a fellow of infinite jest, of most excellent fancy: he hath borne me on his back a thousand times; and now, how abhorred in my imagination it is!"',
+      delayedText: '',
       errors: [],
       services: [
         {
@@ -89,27 +96,33 @@ export default {
       posts: []
     }
   },
+  methods: {
+    addDelayedText () {
+      this.delayedText = this.text3
+    }
+  },
   created () {
     for (let service in this.services) {
-      console.log(service)
+      // console.log(service)
       axios.get('https://hcetest.getsandbox.com' + this.services[service].url)
 
       .then(response => {
         // JSON responses are automatically parsed.
         console.log(response.data)
-          this.posts.push(
-            {
-              title: this.services[service].name,
-              delay: this.services[service].delay,
-              data: response.data.status
-            }
-          )
-        console.log(this.posts)
+        this.posts.push(
+          {
+            title: this.services[service].name,
+            delay: this.services[service].delay,
+            data: response.data.status
+          }
+        )
+        // console.log(this.posts)
       })
       .catch(e => {
         this.errors.push(e)
       })
     }
+    window.setTimeout(this.addDelayedText, this.delay)
 
     // async / await version (created() becomes async created())
     //

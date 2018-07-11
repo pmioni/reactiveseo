@@ -10,7 +10,8 @@
     <hr>
     <div v-for="post of posts">
       <h2>{{post.title}}</h2>
-      <p>{{post.data}}</p>
+      <p>{{post.data | twoSentences}}</p>
+      <router-link :to="{ name: 'character', params: { name: post.title } }">>See full bio</router-link>
       <p><em>(delay: {{ post.delay }}ms)</em></p>
       <hr>
     </div>
@@ -29,7 +30,14 @@
 import axios from 'axios'
 
 export default {
-  name: 'Content',
+  name: 'Home',
+  filters: {
+    twoSentences: function (text) {
+      let tmp = text.replace('a.k.a.', 'AKA').split('. ', 3)
+      tmp.pop()
+      return tmp.join('. ') + '.'
+    }
+  },
   data () {
     return {
       delay: 300,

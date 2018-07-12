@@ -5,8 +5,10 @@ import Vue from 'vue'
 import App from './App'
 import Home from './components/Home'
 import Character from './components/Character'
+import Meta from 'vue-meta'
 
 Vue.use(VueRouter)
+Vue.use(Meta)
 
 const router = new VueRouter({
   mode: 'history',

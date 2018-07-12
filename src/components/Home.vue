@@ -38,8 +38,18 @@ export default {
       return tmp.join('. ') + '.'
     }
   },
+  metaInfo () {
+    return {
+      title: this.title,
+      meta: [
+        { vmid: 'description', name: 'description', content: this.description }
+      ]
+    }
+  },
   data () {
     return {
+      title: 'Reactive SEO experiment with Vue.js (rendered title)',
+      description: 'is is a reactive SEO experiment to test Search Engine\'s indexing capabilities with front-end Javascript frameworks, in this case Vue.js (rendered description)',
       delay: 300,
       msg: 'Text below the above line is rendered by Vue.js reactively, but is rendered immediately, without REST calls. Here\'s a description of the novel:',
       msg2: 'Text below the following line is rendered by Vue.js reactively, and is shown after a delay of 300 ms',

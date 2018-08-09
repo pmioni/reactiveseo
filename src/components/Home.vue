@@ -121,7 +121,7 @@ export default {
   },
   created () {
     for (let service in this.services) {
-      // console.log(service)
+      console.log(service)
       axios.get('https://hcetest.getsandbox.com' + this.services[service].url)
 
       .then(response => {

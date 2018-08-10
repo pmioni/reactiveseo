@@ -7,6 +7,8 @@ import Home from './components/Home'
 import Character from './components/Character'
 import Meta from 'vue-meta'
 
+console.log('Vue starting')
+
 Vue.use(VueRouter)
 Vue.use(Meta)
 

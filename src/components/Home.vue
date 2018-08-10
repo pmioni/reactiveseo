@@ -120,6 +120,7 @@ export default {
     }
   },
   created () {
+    console.log('Home created')
     for (let service in this.services) {
       console.log(service)
       axios.get('https://hcetest.getsandbox.com' + this.services[service].url)

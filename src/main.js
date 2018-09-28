@@ -14,8 +14,9 @@ Vue.use(Meta)
 
 const router = new VueRouter({
   mode: 'history',
+  base: window.location.pathname,
   routes: [
-    {path: '/', component: Home},
+    {path: '', component: Home},
     {name: 'character', path: '/character/:name', component: Character}
   ]
 })
